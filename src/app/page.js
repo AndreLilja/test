@@ -1,95 +1,51 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+// page.js
 
-export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+// Importing necessary modules and components
+import React from "react"; // Import React library
+import RootLayout from "./layout"; // Import RootLayout component
+import Link from 'next/link'; // Import Link from Next.js
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+// Array containing product data
+const products = [
+    { id: 1, name: 'Eggs', imageUrl: '/eggs.jpg', slug: 'eggs' },
+    { id: 2, name: 'Fruits and Vegetables', imageUrl: '/fruits_vegetables.jpg', slug: 'fruits-vegetables' },
+    { id: 3, name: 'Milk', imageUrl: '/milk.jpg', slug: 'milk' },
+    { id: 4, name: 'Honey', imageUrl: '/honey.jpg', slug: 'honey' },
+    { id: 5, name: 'Wine', imageUrl: '/wine.jpg', slug: 'wine' },
+    { id: 6, name: 'Meat', imageUrl: '/meat.jpg', slug: 'meat' },
+];
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+// Functional component representing the Index page
+const IndexPage = () => {
+    // Render JSX for the Index page
+    return (
+        <RootLayout> {/* Render RootLayout component */}
+            {/* Container div for the content */}
+            <div className="flex justify-center items-center min-h-screen bg-gray-100">
+                {/* Grid layout for product items */}
+                <div className="grid grid-cols-3 gap-6">
+                    {/* Map over products array to render each product */}
+                    {products.map(product => (
+                        // Wrap each product in a Next.js Link component for client-side navigation
+                        <Link href={`/product/${product.slug}`} key={product.id}>
+                            {/* Individual product item */}
+                            <div key={product.id} className="block">
+                                {/* Styling for product container */}
+                                <div className="bg-green-200 rounded-lg shadow-md p-4">
+                                    {/* Product image */}
+                                    <img src={product.imageUrl} alt={product.name} className="w-full h-40 object-cover mb-4 rounded-md" />
+                                    {/* Product name */}
+                                    <h2 className="text-xl font-semibold">{product.name}</h2>
+                                </div>
+                            </div>
+                        </Link>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
+                    ))}
+                </div>
+            </div>
+        </RootLayout>
+    );
+};
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  );
-}
+// Export IndexPage component as the default export
+export default IndexPage;
